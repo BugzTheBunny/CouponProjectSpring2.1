@@ -1,5 +1,6 @@
 package com.slava.proj.project.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("admin")
 public class AdminController {
 
-	@RequestMapping("test")
-	public String test() {
-		return "Admin working!";
+	@RequestMapping("/")
+	public String welcome(Authentication authentication) {
+		return "Hello Admin! " + authentication.getName() + " " + authentication.getAuthorities();
 	}
 
 }

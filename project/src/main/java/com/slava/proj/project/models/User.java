@@ -15,6 +15,7 @@ public class User {
 	private String username;
 	private String password;
 	private String role;
+	//private String permission;
 
 	public long getId() {
 		return id;
@@ -52,7 +53,12 @@ public class User {
 		if (this.role.length() > 0) {
 			return Arrays.asList(this.role.split(","));
 		}
-		return new ArrayList<String>();
+		return new ArrayList<>();
 	}
+
+	/*
+	 * public List<String> getPermissionList() { if (this.permission.length() > 0) {
+	 * return Arrays.asList(this.role.split(",")); } return new ArrayList<>(); }
+	 */
 
 }

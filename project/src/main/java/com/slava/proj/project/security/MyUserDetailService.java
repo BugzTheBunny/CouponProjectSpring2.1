@@ -12,8 +12,6 @@ import com.slava.proj.project.repo.UserRepository;
 @Service
 public class MyUserDetailService implements UserDetailsService {
 
-	public User loggedUser;
-
 	@Autowired
 	private UserRepository repo;
 
@@ -23,7 +21,6 @@ public class MyUserDetailService implements UserDetailsService {
 		User user = repo.findByUsername(username);
 		if (user == null)
 			throw new UsernameNotFoundException("Not found!");
-		this.loggedUser = user;
 		return new UserPrincipal(user);
 	}
 

@@ -1,5 +1,5 @@
 insert into user values (1,'123','ADMIN','slava');
-insert into user values (2,'123','ADMIN','Viktor');
+insert into user values (2,'123','ADMIN','viktor');
 insert into user values (3,'123','ADMIN','Bob');
 
 insert into user values (4,'123','CUST','a');

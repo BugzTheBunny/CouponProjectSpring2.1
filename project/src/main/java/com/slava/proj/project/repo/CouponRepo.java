@@ -6,6 +6,4 @@ import com.slava.proj.project.models.Coupon;
 
 public interface CouponRepo extends JpaRepository<Coupon, Long> {
 	
-	
-	
 }
