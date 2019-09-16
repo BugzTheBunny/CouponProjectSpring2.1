@@ -13,6 +13,12 @@ public class DailyTast {
 	@Scheduled(initialDelay = 2000L, fixedDelay = 2000L)
 	void dailyUpdate() {
 		// insert daily task here
+		//
+		//
+		//
+		//
+		//
+		
 		System.out.println("Daily task working ");
 	}
 
