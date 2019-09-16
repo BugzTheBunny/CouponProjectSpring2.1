@@ -24,7 +24,7 @@ public class DailyTast {
 		// insert daily task here
 		//
 		//
-		System.out.println(cRepo.findAll().toString());
+		//System.out.println(cRepo.findAll().toString());
 		LocalDateTime time = LocalDateTime.now();
 		System.out.println("Daily task working " + time);
 	}

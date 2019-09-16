@@ -46,8 +46,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/customer/**").hasAuthority("CUST")
 		.antMatchers("/company/**").hasAuthority("COMP")
 		.antMatchers("/admin/**").hasAuthority("ADMIN")
-		.and().formLogin()
 		.and()
+		.formLogin()
+		.and()
+		.csrf().disable()
 		.httpBasic();
 	}
 
