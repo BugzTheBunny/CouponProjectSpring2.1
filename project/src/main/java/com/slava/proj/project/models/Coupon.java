@@ -1,12 +1,11 @@
 package com.slava.proj.project.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,12 +29,10 @@ public class Coupon {
 	private double price;
 	@NotNull
 	private int amount;
-	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date")
-	private Date start_date;
-	@Temporal(TemporalType.DATE)
+	private LocalDate start_date = LocalDate.now();
 	@Column(name = "end_Date")
-	private Date end_date;
+	private LocalDate end_date;
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "varchar(32) default 'OTHER'")
 	private CType type = CType.FOOD;
