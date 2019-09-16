@@ -2,14 +2,18 @@ package com.slava.proj.project.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
 
 	@Id
 	private long id;
+	@NotNull
 	private String username;
+	@NotNull
 	private String password;
+	@NotNull
 	private String role;
 
 	public User() {

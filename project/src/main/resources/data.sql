@@ -15,3 +15,11 @@ insert into coupon values (2,20,20100505,'bob',5,20110505,'ONSALE','abc','FOOD')
 insert into coupon values (3,20,20100505,'bob',5,20110505,'ONSALE','abc','FOOD');
 insert into coupon values (4,20,20100505,'bob',5,20110505,'ONSALE','abc','FOOD');
 insert into coupon values (5,20,20100505,'bob',5,20110505,'ONSALE','abc','FOOD');
+
+
+create table if not exists company_coupons (user_id bigint not null, coupons_id bigint not null);
+create table if not exists customer_coupons (user_id bigint not null, coupons_id bigint not null);
+
+insert into company_coupons values (2,7);
+
+insert into customer_coupons values (2,7);
