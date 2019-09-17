@@ -122,7 +122,7 @@ public class Coupon {
 	}
 
 	public Coupon(@NotNull long id, @NotNull String title, @NotNull String message, @NotNull double price,
-			@NotNull int amount, LocalDate start_date, LocalDate end_date, CType type, CStatus status) {
+			@NotNull int amount, Date startdate, Date enddate, CType type, CStatus status) {
 		this.id = id;
 		this.title = title;
 		this.message = message;
