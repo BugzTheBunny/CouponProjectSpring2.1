@@ -2,7 +2,10 @@ package com.slava.proj.project.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
@@ -13,12 +16,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
 
 	@Id
+	@Column
+	@NotNull
+	@JsonIgnore
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@NotNull
 	private String username;
 	@NotNull
 	private String password;
 	@NotNull
+	@JsonIgnore
 	private String role;
 	@JsonIgnore
 	@ManyToMany
@@ -28,19 +36,19 @@ public class User {
 
 	}
 
-	public User(int id, String username, String password, String role) {
+	public User(long id, String username, String password, String role) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.role = role;
 	}
 
-	public long getId() {
-		return id;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public long getId() {
+		return id;
 	}
 
 	public String getUsername() {
@@ -65,6 +73,18 @@ public class User {
 
 	public void setRole(String roles) {
 		this.role = roles;
+	}
+
+	public void setCoupons(List<Coupon> coupons) {
+		this.coupons = coupons;
+	}
+
+	public void createCoupon(Coupon coupon) {
+		this.coupons.add(coupon);
+	}
+
+	public List<Coupon> getCoupons() {
+		return coupons;
 	}
 
 }

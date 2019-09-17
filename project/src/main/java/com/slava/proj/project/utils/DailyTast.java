@@ -25,19 +25,43 @@ public class DailyTast {
 
 	@Scheduled(initialDelay = 5000L, fixedDelay = 5000L)
 	void update() {
+		/*
+		 * Counter + Current date
+		 */
 		long amount = 0;
 		LocalDateTime time = LocalDateTime.now();
-		List<Coupon> outdated = cRepo.findAllByEnddateAfter(Date.valueOf(LocalDate.now()));
+
+		/*
+		 * Lists for working with the daily update utility
+		 */
 		List<Coupon> expired = cRepo.findAllByStatusNot(CStatus.ONSALE);
-		/////////////////////////////////////////
+		List<Coupon> outdated = cRepo.findAllByEnddateAfter(Date.valueOf(LocalDate.now()));
+		List<Coupon> notExpired = cRepo.findAllByEnddateBefore(Date.valueOf(LocalDate.now()));
+
+		/*
+		 * Changing the status of the coupon to Expired is the date is after today
+		 */
 		for (Coupon coupon : outdated) {
 			if (coupon.getStatus() != CStatus.EXPIRED) {
 				amount++;
 				coupon.setStatus(CStatus.EXPIRED);
 				cRepo.save(coupon);
+
 			}
 		}
-		////////////////////////////////////////
+
+		/*
+		 * This is for updating the coupons that their ending date was updated, and they
+		 * are counted as Expired right now
+		 */
+		for (Coupon coupon : notExpired) {
+			coupon.setStatus(CStatus.ONSALE);
+			cRepo.save(coupon);
+		}
+
+		/*
+		 * Info for the console
+		 */
 		System.out.println("------- Number of updated coupons today: " + amount);
 		System.out.println("Expired Coupons: \n" + expired);
 		System.out.println("Outdated Coupons: \n" + outdated);

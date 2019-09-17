@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.slava.proj.project.enums.CStatus;
+import com.slava.proj.project.models.CompanyWallet;
 import com.slava.proj.project.models.Coupon;
 import com.slava.proj.project.models.Customer;
 import com.slava.proj.project.repo.CouponRepo;
 import com.slava.proj.project.repo.CustomerRepo;
+import com.slava.proj.project.repo.WalletRepo;
 
 @RestController
 @RequestMapping("customer")
@@ -23,11 +27,15 @@ public class CustomerController {
 	CouponRepo couponRepo;
 	@Autowired
 	CustomerRepo custRepo;
+	@Autowired
+	WalletRepo walletRepo;
 
 	@GetMapping("")
 	public String welcome(Authentication authentication) {
 		return "Hello Customer! " + authentication.getName() + " " + authentication.getAuthorities();
 	}
+
+	////////////// GET///////////////
 
 	@GetMapping("/mycoupons")
 	public List<Coupon> myCoupons(Authentication authentication) {
@@ -35,11 +43,37 @@ public class CustomerController {
 		return coupons;
 	}
 
+	@GetMapping("/info")
+	public Customer myInfo(Authentication authentication) {
+		return custRepo.findByUsername(authentication.getName());
+	}
+
+	//////////// POST//////////////
 	@PostMapping(path = "/buy", consumes = { "application/json" })
 	public void buyCoupon(Authentication authentication, @RequestBody long id) {
 		Customer cust = custRepo.findByUsername(authentication.getName());
-		cust.addCoupon(couponRepo.findById(id));
-		custRepo.save(cust);
+		Coupon coup = couponRepo.findById(id);
+		CompanyWallet wallet = walletRepo.findById(1);
+		if (coup.getStatus() != CStatus.EXPIRED && coup.getAmount() > 0) {
+			cust.addCoupon(couponRepo.findById(id));
+			coup.setAmount(coup.getAmount() - 1);
+			wallet.setIncome(wallet.getIncome() + coup.getPrice());
+			wallet.setTransactions(wallet.getTransactions() + 1);
+			walletRepo.save(wallet);
+			custRepo.save(cust);
+			couponRepo.save(coup);
+		} else {
+			System.err.println("Error");
+		}
+
+	}
+
+	/////////// UPDATE//////////////
+	@PutMapping(path = "/update", consumes = { "application/json" })
+	public void updatePassword(Authentication authentication, @RequestBody String password) {
+		Customer currCust = custRepo.findByUsername(authentication.getName());
+		currCust.setPassword(password);
+		custRepo.save(currCust);
 	}
 
 }

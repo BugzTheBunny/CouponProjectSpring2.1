@@ -1,6 +1,7 @@
 package com.slava.proj.project.controllers;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.slava.proj.project.models.Coupon;
+import com.slava.proj.project.models.Customer;
 import com.slava.proj.project.models.User;
 import com.slava.proj.project.repo.CouponRepo;
+import com.slava.proj.project.repo.CustomerRepo;
 import com.slava.proj.project.repo.UserRepository;
 
 @RestController
@@ -26,8 +29,10 @@ public class CompanyController {
 	UserRepository userRepo;
 	@Autowired
 	CouponRepo couponRepo;
+	@Autowired
+	CustomerRepo custRepo;
 
-	@RequestMapping("")
+	@GetMapping("")
 	public String welcome(Authentication authentication) {
 		return "Hello Company Manager! " + authentication.getName() + " " + authentication.getAuthorities();
 	}
@@ -53,6 +58,17 @@ public class CompanyController {
 		return new User(99999999, "Invalid Account", "Not a customer", "No Access");
 	}
 
+	@GetMapping("/mycoupons")
+	public List<Coupon> myCoupons(Authentication authentication) {
+		List<Coupon> coupons = userRepo.findByUsername(authentication.getName()).getCoupons();
+		return coupons;
+	}
+
+	@GetMapping("/info")
+	public User myInfo(Authentication authentication) {
+		return userRepo.findByUsername(authentication.getName());
+	}
+
 	@GetMapping("/coupons")
 	public Collection<Coupon> getCoupons() {
 		return couponRepo.findAll();
@@ -60,15 +76,25 @@ public class CompanyController {
 
 	//////////////// POST///////////////
 	@PostMapping(path = "/newcoup", consumes = { "application/json" })
-	public void adduser(@RequestBody Coupon coup) {
-		couponRepo.save(coup);
+	public void createCoupon(Authentication authentication, @RequestBody Coupon coupon) {
+		User company = userRepo.findByUsername(authentication.getName());
+		couponRepo.save(coupon);
+		company.createCoupon(coupon);
+		userRepo.save(company);
+	}
+
+	@PostMapping(path = "/newcustomer", consumes = { "application/json" })
+	public void addCustomer(@RequestBody Customer cust) {
+		cust.setRole("CUST");
+		custRepo.save(cust);
 	}
 
 	//////////////// PUT////////////////
-	
 	@PutMapping(path = "/updateUser", consumes = { "application/json" })
-	public void uUser(@RequestBody User user) {
-		userRepo.save(user);
+	public void updatePassword(Authentication authentication, @RequestBody String password) {
+		User company = userRepo.findByUsername(authentication.getName());
+		company.setPassword(password);
+		userRepo.save(company);
 	}
 
 	//////////////// DELETE/////////////

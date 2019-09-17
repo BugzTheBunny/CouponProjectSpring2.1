@@ -2,7 +2,10 @@ package com.slava.proj.project.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
@@ -13,12 +16,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Customer {
 
 	@Id
+	@Column
+	@NotNull
+	@JsonIgnore
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@NotNull
 	private String username;
 	@NotNull
 	private String password;
 	@NotNull
+	@JsonIgnore
 	private String role = "CUST";
 	@JsonIgnore
 	@ManyToMany

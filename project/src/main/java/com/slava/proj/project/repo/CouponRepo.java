@@ -14,5 +14,8 @@ public interface CouponRepo extends JpaRepository<Coupon, Long> {
 
 	List<Coupon> findAllByEnddateAfter(Date date);
 
+	List<Coupon> findAllByEnddateBefore(Date date);
+
 	List<Coupon> findAllByStatusNot(CStatus cStatus);
+
 }

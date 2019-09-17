@@ -7,9 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.slava.proj.project.enums.CStatus;
 import com.slava.proj.project.enums.CType;
 
@@ -19,6 +22,8 @@ public class Coupon {
 	@Id
 	@Column
 	@NotNull
+	@JsonIgnore
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@NotNull
 	private String title;
@@ -29,6 +34,7 @@ public class Coupon {
 	@NotNull
 	private int amount;
 	@Column(name = "start_date")
+	@JsonIgnore
 	private Date startdate = Date.valueOf(LocalDate.now());
 	@Column(name = "end_Date")
 	private Date enddate;

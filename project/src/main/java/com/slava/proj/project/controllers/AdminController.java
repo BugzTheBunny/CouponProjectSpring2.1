@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.slava.proj.project.models.Coupon;
@@ -32,7 +33,7 @@ public class AdminController {
 	@Autowired
 	private CustomerRepo custRepo;
 
-	@RequestMapping("")
+	@GetMapping("")
 	public String welcome(Authentication authentication) {
 		return "Hello Admin! " + authentication.getName() + " " + authentication.getAuthorities();
 	}
@@ -80,13 +81,13 @@ public class AdminController {
 
 	//////////////////// POST////////////////////////////
 
-	@PostMapping(path = "/newcomp", consumes = { "application/json" })
+	@PostMapping(path = "/newCompany", consumes = { "application/json" })
 	public void addCompany(@RequestBody User user) {
 		user.setRole("COMP");
 		userRepo.save(user);
 	}
 
-	@PostMapping(path = "/newcust", consumes = { "application/json" })
+	@PostMapping(path = "/newcustomer", consumes = { "application/json" })
 	public void addCustomer(@RequestBody Customer cust) {
 		cust.setRole("CUST");
 		custRepo.save(cust);
@@ -94,18 +95,31 @@ public class AdminController {
 
 	/////////////////// UPDATE///////////////////////////
 	@PutMapping(path = "/updateCoupon", consumes = { "application/json" })
-	public void uCoupon(@RequestBody Coupon coupon) {
-		couponRepo.save(coupon);
+	public void updateCoupon(@RequestParam long id, @RequestBody Coupon coupon) {
+		Coupon update = couponRepo.findById(id);
+		update.setAmount(coupon.getAmount());
+		update.setEnddate(coupon.getEnddate());
+		update.setMessage(coupon.getMessage());
+		update.setPrice(coupon.getPrice());
+		update.setTitle(coupon.getTitle());
+		couponRepo.save(update);
 	}
 
 	@PutMapping(path = "/updateUser", consumes = { "application/json" })
-	public void uUser(@RequestBody User user) {
+	public void updateUser(@RequestBody User user) {
 		userRepo.save(user);
 	}
 
 	@PutMapping(path = "/updateCust", consumes = { "application/json" })
 	public void uCustomer(@RequestBody Customer customer) {
 		custRepo.save(customer);
+	}
+
+	@PutMapping(path = "/promote", consumes = { "application/json" })
+	public void promote(@RequestBody long id) {
+		User toPromote = userRepo.findById(id);
+		toPromote.setRole("ADMIN");
+		userRepo.save(toPromote);
 	}
 
 	//////////////////////// DELETE////////////////////////////

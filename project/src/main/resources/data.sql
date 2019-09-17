@@ -1,23 +1,20 @@
-insert into user values (1,'123','ADMIN','slava');
-insert into user values (2,'123','ADMIN','viktor');
-insert into user values (3,'123','ADMIN','Bob');
+insert into user values (101,'123','ADMIN','slava');
+insert into user values (102,'123','ADMIN','viktor');
 
-insert into customer values (4,'123','CUST','cust');
-insert into customer values (5,'123','CUST','b');
-insert into customer values (6,'123','CUST','c');
+insert into customer values (101,'123','CUST','cust');
+insert into customer values (102,'123','CUST','b');
+insert into customer values (103,'123','CUST','c');
 
-insert into user values (7,'123','COMP','comp');
-insert into user values (8,'123','COMP','e');
-insert into user values (9,'123','COMP','f');
+insert into user values (103,'123','COMP','comp');
+insert into user values (104,'123','COMP','e');
+insert into user values (105,'123','COMP','f');
 
-insert into coupon values (1,20,20100505,'bob',5,20230505,'ONSALE','abc','FOOD');
-insert into coupon values (2,20,20100505,'bob',5,20210505,'ONSALE','abc','FOOD');
-insert into coupon values (3,20,20100505,'bob',5,20220505,'ONSALE','abc','FOOD');
-insert into coupon values (4,20,20100505,'bob',5,20200505,'ONSALE','abc','FOOD');
-insert into coupon values (5,20,20100505,'bob',5,20210505,'ONSALE','abc','FOOD');
-insert into coupon values (100,20,20220505,'bob',5,20110505,'ONSALE','abc','FOOD');
-insert into coupon values (101,20,20220505,'bob',5,20110505,'ONSALE','abc','FOOD');
+insert into coupon values (100,20,20100505,'bob',5,20230505,'ONSALE','abc','FOOD');
+insert into coupon values (101,20,20100505,'bob',5,20210505,'ONSALE','abc','FOOD');
+insert into coupon values (102,20,20100505,'bob',5,20220505,'ONSALE','abc','FOOD');
+insert into coupon values (103,20,20100505,'bob',5,20200505,'ONSALE','abc','FOOD');
+insert into coupon values (104,20,20100505,'bob',5,20210505,'ONSALE','abc','FOOD');
+insert into coupon values (105,20,20220505,'bob',5,20110505,'ONSALE','abc','FOOD');
+insert into coupon values (106,20,20220505,'bob',5,20110505,'ONSALE','abc','FOOD');
 
-insert into user_coupons values (2,5);
-
-insert into customer_coupons values (2,5);
+insert into company_wallet values (1,0);
