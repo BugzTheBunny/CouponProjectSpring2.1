@@ -16,4 +16,4 @@ insert into coupon values (104,20,20100505,'bob',5,20210505,'ONSALE','abc','FOOD
 insert into coupon values (105,20,20220505,'bob',5,20110505,'ONSALE','abc','FOOD');
 insert into coupon values (106,20,20220505,'bob',5,20110505,'ONSALE','abc','FOOD');
 
-insert into company_wallet values (1,0);
+insert into company_wallet values (1,0,0);

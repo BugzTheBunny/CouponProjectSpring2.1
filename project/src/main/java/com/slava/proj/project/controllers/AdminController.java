@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.slava.proj.project.exceptions.RestrictedException;
 import com.slava.proj.project.models.Coupon;
 import com.slava.proj.project.models.Customer;
 import com.slava.proj.project.models.User;
@@ -34,7 +35,7 @@ public class AdminController {
 	private CustomerRepo custRepo;
 
 	@GetMapping("")
-	public String welcome(Authentication authentication) {
+	public String welcome(Authentication authentication) throws RestrictedException {
 		return "Hello Admin! " + authentication.getName() + " " + authentication.getAuthorities();
 	}
 
