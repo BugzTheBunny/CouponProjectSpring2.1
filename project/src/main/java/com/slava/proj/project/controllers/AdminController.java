@@ -39,10 +39,34 @@ public class AdminController {
 		return "Hello Admin! " + authentication.getName() + " " + authentication.getAuthorities();
 	}
 
-	///// Getters//////////////////////////////////
+	/*
+	 * GET Requests:
+	 * 
+	 * @getCompanies
+	 * 
+	 * @getCustomers
+	 * 
+	 * @getUserById
+	 * 
+	 * @getCustById
+	 * 
+	 * @getUserByName - For returning companies/ admins
+	 * 
+	 * @getCustomerByName
+	 * 
+	 * @getCoupon - by ID
+	 * 
+	 * @getCoupons
+	 * 
+	 */
 	@GetMapping("/companies")
 	public Collection<User> getCompanies() {
 		return userRepo.findAllByRole("COMP");
+	}
+
+	@GetMapping("/customers")
+	public List<Customer> getCustomers() {
+		return custRepo.findAll();
 	}
 
 	@GetMapping("/userid/{id}")
@@ -61,13 +85,8 @@ public class AdminController {
 	}
 
 	@GetMapping("/custname/{username}")
-	public Customer getCustByName(@PathVariable("username") String username) {
+	public Customer getCustomerByName(@PathVariable("username") String username) {
 		return custRepo.findByUsername(username);
-	}
-
-	@GetMapping("/customers")
-	public List<Customer> getCustomers() {
-		return custRepo.findAll();
 	}
 
 	@GetMapping("/coupons/{id}")
@@ -80,7 +99,14 @@ public class AdminController {
 		return couponRepo.findAll();
 	}
 
-	//////////////////// POST////////////////////////////
+	/*
+	 * POST Requests
+	 * 
+	 * @addCompany
+	 * 
+	 * @addCustomer
+	 * 
+	 */
 
 	@PostMapping(path = "/newCompany", consumes = { "application/json" })
 	public void addCompany(@RequestBody User user) {
@@ -94,7 +120,17 @@ public class AdminController {
 		custRepo.save(cust);
 	}
 
-	/////////////////// UPDATE///////////////////////////
+	/*
+	 * PUT Requests
+	 * 
+	 * @updateCoupon - (coupon id, JSon of the coupon info )
+	 * 
+	 * @updateUser - updates users only
+	 * 
+	 * @updateCusomer - updates customers only
+	 * 
+	 * @promote - random operation, can promote Company owener to an ADMIN, by ID
+	 */
 	@PutMapping(path = "/updateCoupon", consumes = { "application/json" })
 	public void updateCoupon(@RequestParam long id, @RequestBody Coupon coupon) {
 		Coupon update = couponRepo.findById(id);
@@ -123,29 +159,45 @@ public class AdminController {
 		userRepo.save(toPromote);
 	}
 
-	//////////////////////// DELETE////////////////////////////
+	/*
+	 * DELETE Requests
+	 * 
+	 * @----(Need to implements the status with spring security)----@
+	 * 
+	 * @removeCoupon - needs to be updated
+	 * 
+	 * @deleteUser
+	 * 
+	 * @deleteCustomerById
+	 * 
+	 * @deleteCustomerByName
+	 * 
+	 * @deleteUser
+	 * 
+	 */
 	@DeleteMapping("/dcoupon/{id}")
 	public void removeCoupon(@PathVariable("id") long id) {
 		couponRepo.delete(couponRepo.findById(id));
 	}
 
 	@DeleteMapping("/duserid/{id}")
-	public void deleteUser(@PathVariable("id") long id) {
+	public void deleteUserById(@PathVariable("id") long id) {
 		userRepo.delete(userRepo.findById(id));
 	}
 
-	@DeleteMapping("/dcustid/{id}")
-	public void deleteCustomer(@PathVariable("id") long id) {
-		custRepo.delete(custRepo.findById(id));
-	}
-
 	@DeleteMapping("/dusername/{username}")
-	public void deleteUser(@PathVariable("username") String username) {
+	public void deleteUserByName(@PathVariable("username") String username) {
 		userRepo.delete(userRepo.findByUsername(username));
 	}
 
+	@DeleteMapping("/dcustid/{id}")
+	public void deleteCustomerById(@PathVariable("id") long id) {
+		custRepo.delete(custRepo.findById(id));
+	}
+
 	@DeleteMapping("/dcustname/{username}")
-	public void deleteCustomer(@PathVariable("username") String username) {
+	public void deleteCustomerByName(@PathVariable("username") String username) {
 		custRepo.delete(custRepo.findByUsername(username));
 	}
+
 }
