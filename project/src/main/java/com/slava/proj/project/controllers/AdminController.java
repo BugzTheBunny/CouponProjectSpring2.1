@@ -1,6 +1,7 @@
 package com.slava.proj.project.controllers;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.slava.proj.project.models.Coupon;
+import com.slava.proj.project.models.Customer;
 import com.slava.proj.project.models.User;
 import com.slava.proj.project.repo.CouponRepo;
+import com.slava.proj.project.repo.CustomerRepo;
 import com.slava.proj.project.repo.UserRepository;
 
 @RestController
@@ -26,6 +29,8 @@ public class AdminController {
 	private UserRepository userRepo;
 	@Autowired
 	private CouponRepo couponRepo;
+	@Autowired
+	private CustomerRepo custRepo;
 
 	@RequestMapping("")
 	public String welcome(Authentication authentication) {
@@ -43,14 +48,24 @@ public class AdminController {
 		return userRepo.findById(id);
 	}
 
+	@GetMapping("/custid/{id}")
+	public Customer getCustById(@PathVariable("id") long id) {
+		return custRepo.findById(id);
+	}
+
 	@GetMapping("/username/{username}")
 	public User getUserByName(@PathVariable("username") String username) {
 		return userRepo.findByUsername(username);
 	}
 
+	@GetMapping("/custname/{username}")
+	public Customer getCustByName(@PathVariable("username") String username) {
+		return custRepo.findByUsername(username);
+	}
+
 	@GetMapping("/customers")
-	public Collection<User> getCustomers() {
-		return userRepo.findAllByRole("CUST");
+	public List<Customer> getCustomers() {
+		return custRepo.findAll();
 	}
 
 	@GetMapping("/coupons/{id}")
@@ -66,9 +81,15 @@ public class AdminController {
 	//////////////////// POST////////////////////////////
 
 	@PostMapping(path = "/newcomp", consumes = { "application/json" })
-	public void adduser(@RequestBody User user) {
+	public void addCompany(@RequestBody User user) {
 		user.setRole("COMP");
 		userRepo.save(user);
+	}
+
+	@PostMapping(path = "/newcust", consumes = { "application/json" })
+	public void addCustomer(@RequestBody Customer cust) {
+		cust.setRole("CUST");
+		custRepo.save(cust);
 	}
 
 	/////////////////// UPDATE///////////////////////////
@@ -82,6 +103,11 @@ public class AdminController {
 		userRepo.save(user);
 	}
 
+	@PutMapping(path = "/updateCust", consumes = { "application/json" })
+	public void uCustomer(@RequestBody Customer customer) {
+		custRepo.save(customer);
+	}
+
 	//////////////////////// DELETE////////////////////////////
 	@DeleteMapping("/dcoupon/{id}")
 	public void removeCoupon(@PathVariable("id") long id) {
@@ -93,8 +119,18 @@ public class AdminController {
 		userRepo.delete(userRepo.findById(id));
 	}
 
+	@DeleteMapping("/dcustid/{id}")
+	public void deleteCustomer(@PathVariable("id") long id) {
+		custRepo.delete(custRepo.findById(id));
+	}
+
 	@DeleteMapping("/dusername/{username}")
 	public void deleteUser(@PathVariable("username") String username) {
 		userRepo.delete(userRepo.findByUsername(username));
+	}
+
+	@DeleteMapping("/dcustname/{username}")
+	public void deleteCustomer(@PathVariable("username") String username) {
+		custRepo.delete(custRepo.findByUsername(username));
 	}
 }

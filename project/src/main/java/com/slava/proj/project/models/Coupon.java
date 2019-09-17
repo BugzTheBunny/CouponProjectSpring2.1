@@ -1,5 +1,6 @@
 package com.slava.proj.project.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -28,9 +29,9 @@ public class Coupon {
 	@NotNull
 	private int amount;
 	@Column(name = "start_date")
-	private LocalDate start_date = LocalDate.now();
+	private Date startdate = Date.valueOf(LocalDate.now());
 	@Column(name = "end_Date")
-	private LocalDate end_date;
+	private Date enddate;
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "varchar(32) default 'OTHER'")
 	private CType type = CType.FOOD;
@@ -78,20 +79,20 @@ public class Coupon {
 		this.amount = amount;
 	}
 
-	public LocalDate getStart_date() {
-		return start_date;
+	public Date getStartdate() {
+		return startdate;
 	}
 
-	public void setStart_date(LocalDate start_date) {
-		this.start_date = start_date;
+	public void setStart_date(Date startdate) {
+		this.startdate = startdate;
 	}
 
-	public LocalDate getEnd_date() {
-		return end_date;
+	public Date getEnddate() {
+		return enddate;
 	}
 
-	public void setEnd_date(LocalDate end_date) {
-		this.end_date = end_date;
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
 	}
 
 	public CType getType() {
@@ -121,8 +122,8 @@ public class Coupon {
 		this.message = message;
 		this.price = price;
 		this.amount = amount;
-		this.start_date = start_date;
-		this.end_date = end_date;
+		this.startdate = startdate;
+		this.enddate = enddate;
 		this.type = type;
 		this.status = status;
 	}
@@ -130,7 +131,7 @@ public class Coupon {
 	@Override
 	public String toString() {
 		return "Coupon [id=" + id + ", title=" + title + ", message=" + message + ", price=" + price + ", amount="
-				+ amount + ", start_date=" + start_date + ", end_date=" + end_date + ", type=" + type + ", status="
+				+ amount + ", start_date=" + startdate + ", end_date=" + enddate + ", type=" + type + ", status="
 				+ status + "]";
 	}
 

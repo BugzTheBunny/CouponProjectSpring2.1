@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
+public class Customer {
 
 	@Id
 	private long id;
@@ -19,16 +19,16 @@ public class User {
 	@NotNull
 	private String password;
 	@NotNull
-	private String role;
+	private String role = "CUST";
 	@JsonIgnore
 	@ManyToMany
 	private List<Coupon> coupons;
 
-	public User() {
+	public Customer() {
 
 	}
 
-	public User(int id, String username, String password, String role) {
+	public Customer(long id, String username, String password, String role) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -37,10 +37,6 @@ public class User {
 
 	public long getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getUsername() {
@@ -63,8 +59,24 @@ public class User {
 		return role;
 	}
 
-	public void setRole(String roles) {
-		this.role = roles;
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public List<Coupon> getCoupons() {
+		return coupons;
+	}
+
+	public void setCoupons(List<Coupon> coupons) {
+		this.coupons = coupons;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void addCoupon(Coupon coupon) {
+		this.coupons.add(coupon);
 	}
 
 }
