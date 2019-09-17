@@ -35,8 +35,8 @@ public class AdminController {
 	private CustomerRepo custRepo;
 
 	@GetMapping("")
-	public String welcome(Authentication authentication) throws RestrictedException {
-		return "Hello Admin! " + authentication.getName() + " " + authentication.getAuthorities();
+	public String welcome(Authentication authentication) {
+		return "Hello Admin! " + authentication.getName();
 	}
 
 	/*
