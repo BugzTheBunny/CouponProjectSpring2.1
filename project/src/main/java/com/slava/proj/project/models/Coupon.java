@@ -33,8 +33,8 @@ public class Coupon {
 	private double price;
 	@NotNull
 	private int amount;
-	@Column(name = "start_date")
 	@JsonIgnore
+	@Column(name = "start_date")
 	private Date startdate = Date.valueOf(LocalDate.now());
 	@Column(name = "end_Date")
 	private Date enddate;
