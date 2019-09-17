@@ -129,7 +129,7 @@ public class AdminController {
 	 * 
 	 * @updateCusomer - updates customers only
 	 * 
-	 * @promote - random operation, can promote Company owener to an ADMIN, by ID
+	 * @promote - random operation, can promote Company owner to an ADMIN, by ID
 	 */
 	@PutMapping(path = "/updateCoupon", consumes = { "application/json" })
 	public void updateCoupon(@RequestParam long id, @RequestBody Coupon coupon) {
