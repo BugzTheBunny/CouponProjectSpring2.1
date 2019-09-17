@@ -148,7 +148,7 @@ public class AdminController {
 	}
 
 	@PutMapping(path = "/updateCust", consumes = { "application/json" })
-	public void uCustomer(@RequestBody Customer customer) {
+	public void updateCustomer(@RequestBody Customer customer) {
 		custRepo.save(customer);
 	}
 
