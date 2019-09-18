@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.slava.proj.project.enums.CStatus;
 import com.slava.proj.project.models.Coupon;
 import com.slava.proj.project.models.Customer;
 import com.slava.proj.project.models.User;
@@ -37,25 +38,35 @@ public class CompanyController {
 		return "Hello Company Manager! " + authentication.getName() + " " + authentication.getAuthorities();
 	}
 
-	////////////////// GET////////////////////////
+	/*
+	 * GET Requests
+	 * 
+	 * @getCustomers - returns the customer list
+	 * 
+	 * @getCustomerbyID
+	 * 
+	 * @getCustomerByName
+	 * 
+	 * @myCoupons - returns the coupons list for the current company
+	 */
 	@GetMapping("/customers")
 	public Collection<User> getCustomers() {
 		return userRepo.findAllByRole("CUST");
 	}
 
-	@GetMapping("/userid/{id}")
-	public User getUserById(@PathVariable("id") long id) {
-		if (userRepo.findById(id).getRole().equalsIgnoreCase("CUST"))
-			return userRepo.findById(id);
-		return new User(99999999, "Invalid Account", "Not a customer", "No Access");
+	@GetMapping("/custid/{id}")
+	public Customer getCustomerById(@PathVariable("id") long id) {
+		if (custRepo.findById(id) != null)
+			return custRepo.findById(id);
+		return new Customer(99999999, "Invalid Account", "Not a customer", "No Access");
 
 	}
 
-	@GetMapping("/username/{username}")
-	public User getUserByUsername(@PathVariable("username") String username) {
-		if (userRepo.findByUsername(username).getRole().equalsIgnoreCase("CUST"))
-			return userRepo.findByUsername(username);
-		return new User(99999999, "Invalid Account", "Not a customer", "No Access");
+	@GetMapping("/custname/{username}")
+	public Customer getCustomerByName(@PathVariable("username") String username) {
+		if (custRepo.findByUsername(username) != null)
+			return custRepo.findByUsername(username);
+		return new Customer(99999999, "Invalid Account", "Not a customer", "No Access");
 	}
 
 	@GetMapping("/mycoupons")
@@ -97,19 +108,25 @@ public class CompanyController {
 		userRepo.save(company);
 	}
 
-	//////////////// DELETE/////////////
+	/*
+	 * DELETE Requests (Need to update)
+	 * 
+	 * @removeCoupon
+	 * 
+	 */
 	@DeleteMapping("/dcoupon/{id}")
 	public void removeCoupon(@PathVariable("id") long id) {
-		couponRepo.delete(couponRepo.findById(id));
+		if (couponRepo.findById(id) != null) {
+			Coupon coupon = couponRepo.findById(id);
+			coupon.setStatus(CStatus.REMOVED);
+			couponRepo.save(coupon);
+		}
 	}
 
-	@DeleteMapping("/duser/{id}")
-	public void deleteUser(@PathVariable("id") long id) {
-		if (userRepo.findById(id).getRole().equalsIgnoreCase("CUST")) {
-			userRepo.delete(userRepo.findById(id));
-		} else {
-			System.err.println("Not a customer");
-		}
+	@DeleteMapping("/dcustomer/{id}")
+	public void deleteCustomer(@PathVariable("id") long id) {
+		if (custRepo.findById(id) != null)
+			custRepo.delete(custRepo.findById(id));
 
 	}
 

@@ -42,11 +42,13 @@ public class DailyTast {
 		 * Changing the status of the coupon to Expired is the date is after today
 		 */
 		for (Coupon coupon : outdated) {
-			if (coupon.getStatus() != CStatus.EXPIRED) {
-				amount++;
-				coupon.setStatus(CStatus.EXPIRED);
-				cRepo.save(coupon);
+			if (coupon.getStatus() != CStatus.REMOVED) {
+				if (coupon.getStatus() != CStatus.EXPIRED) {
+					amount++;
+					coupon.setStatus(CStatus.EXPIRED);
+					cRepo.save(coupon);
 
+				}
 			}
 		}
 
@@ -55,8 +57,10 @@ public class DailyTast {
 		 * are counted as Expired right now
 		 */
 		for (Coupon coupon : notExpired) {
-			coupon.setStatus(CStatus.ONSALE);
-			cRepo.save(coupon);
+			if (coupon.getStatus() != CStatus.REMOVED) {
+				coupon.setStatus(CStatus.ONSALE);
+				cRepo.save(coupon);
+			}
 		}
 
 		/*

@@ -35,7 +35,15 @@ public class CustomerController {
 		return "Hello Customer! " + authentication.getName() + " " + authentication.getAuthorities();
 	}
 
-	////////////// GET///////////////
+	/*
+	 * GET Requests
+	 * 
+	 * @myCoupons - returns the current logged user coupons list
+	 *
+	 * @myInfo - return the current logged user credentials
+	 *
+	 * @couponsOnsale - returns the current coupons that the customer may buy
+	 */
 
 	@GetMapping("/mycoupons")
 	public List<Coupon> myCoupons(Authentication authentication) {
@@ -48,7 +56,21 @@ public class CustomerController {
 		return custRepo.findByUsername(authentication.getName());
 	}
 
-	//////////// POST//////////////
+	@GetMapping("/sale")
+	public List<Coupon> couponsOnsale() {
+		List<Coupon> valid = couponRepo.findAllByStatusNot(CStatus.EXPIRED);
+		return valid;
+	}
+
+	/*
+	 * POST Requests
+	 * 
+	 * @buyCoupons - Allows you to buy coupons (Inserting the ID of the coupons and
+	 * the id of the customer into a join table)
+	 * 
+	 * @
+	 */
+
 	@PostMapping(path = "/buy", consumes = { "application/json" })
 	public void buyCoupon(Authentication authentication, @RequestBody long id) {
 		Customer cust = custRepo.findByUsername(authentication.getName());
@@ -68,7 +90,13 @@ public class CustomerController {
 
 	}
 
-	/////////// UPDATE//////////////
+	/*
+	 * PUT Requests
+	 * 
+	 * @Allows the current logged customer to change his password (the username may
+	 * be changed only by the Admin);
+	 */
+
 	@PutMapping(path = "/update", consumes = { "application/json" })
 	public void updatePassword(Authentication authentication, @RequestBody String password) {
 		Customer currCust = custRepo.findByUsername(authentication.getName());
