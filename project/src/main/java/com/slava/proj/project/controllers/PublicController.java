@@ -1,11 +1,10 @@
 package com.slava.proj.project.controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,15 +32,20 @@ public class PublicController {
 	}
 
 	@GetMapping("/coupons")
-	public List<Coupon> getAllCoupons() {
+	public Collection<Coupon> getAllCoupons() {
 		return couponRepo.findAll();
 	}
 
 	@GetMapping("/validcoupons")
-	public List<Coupon> getAllValidCoupons() {
-		List<Coupon> coupons = null;
-		coupons.addAll(couponRepo.findAllByStatusNot(CStatus.EXPIRED));
-		coupons.addAll(couponRepo.findAllByStatusNot(CStatus.REMOVED));
+	public Collection<Coupon> getAllValidCoupons() {
+		Collection<Coupon> coupons = couponRepo.findAll();
+		for (Coupon coupon : coupons) {
+			if (coupon.getStatus() == CStatus.REMOVED || coupon.getStatus() == CStatus.EXPIRED) {
+				coupons.remove(coupon);
+			}
+		}
 		return coupons;
+		
+		//TEST
 	}
 }
