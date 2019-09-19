@@ -1,11 +1,11 @@
 package com.slava.proj.project.controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.slava.proj.project.enums.CStatus;
@@ -36,6 +36,11 @@ public class PublicController {
 		return couponRepo.findAll();
 	}
 
+	@GetMapping("/coupons/{id}")
+	public Coupon getCoupon(@PathVariable("id") long id) {
+		return couponRepo.findById(id);
+	}
+
 	@GetMapping("/validcoupons")
 	public Collection<Coupon> getAllValidCoupons() {
 		Collection<Coupon> coupons = couponRepo.findAll();
@@ -45,7 +50,7 @@ public class PublicController {
 			}
 		}
 		return coupons;
-		
-		//TEST
+
 	}
+
 }

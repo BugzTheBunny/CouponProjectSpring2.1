@@ -58,15 +58,6 @@ public class AdminController {
 	 * @getCoupons
 	 * 
 	 */
-	@GetMapping("/companies")
-	public Collection<User> getCompanies() {
-		return userRepo.findAllByRole("ROLE_COMP");
-	}
-
-	@GetMapping("/customers")
-	public List<Customer> getCustomers() {
-		return custRepo.findAll();
-	}
 
 	@GetMapping("/userid/{id}")
 	public User getUserById(@PathVariable("id") long id) {
@@ -86,16 +77,6 @@ public class AdminController {
 	@GetMapping("/custname/{username}")
 	public Customer getCustomerByName(@PathVariable("username") String username) {
 		return custRepo.findByUsername(username);
-	}
-
-	@GetMapping("/coupons/{id}")
-	public Coupon getCoupon(@PathVariable("id") long id) {
-		return couponRepo.findById(id);
-	}
-
-	@GetMapping("/coupons")
-	public Collection<Coupon> getCoupons() {
-		return couponRepo.findAll();
 	}
 
 	/*
