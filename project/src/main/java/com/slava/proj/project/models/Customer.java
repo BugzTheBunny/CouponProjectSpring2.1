@@ -31,16 +31,21 @@ public class Customer {
 	@JsonIgnore
 	@ManyToMany
 	private List<Coupon> coupons;
+	@NotNull
+	@JsonIgnore
+	@Column(columnDefinition = "BOOLEAN")
+	private boolean isEnabled;
 
 	public Customer() {
 
 	}
 
-	public Customer(long id, String username, String password, String role) {
+	public Customer(long id, String username, String password, String role, boolean isEnabled) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.isEnabled = isEnabled;
 	}
 
 	public long getId() {
@@ -85,6 +90,14 @@ public class Customer {
 
 	public void addCoupon(Coupon coupon) {
 		this.coupons.add(coupon);
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 
 }

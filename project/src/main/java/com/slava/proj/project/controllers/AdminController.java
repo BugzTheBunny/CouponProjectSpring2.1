@@ -191,12 +191,20 @@ public class AdminController {
 
 	@DeleteMapping("/dcustid/{id}")
 	public void deleteCustomerById(@PathVariable("id") long id) {
-		custRepo.delete(custRepo.findById(id));
+		if (custRepo.findById(id) != null) {
+			Customer customer = custRepo.findById(id);
+			customer.setEnabled(false);
+			custRepo.save(customer);
+		}
 	}
 
 	@DeleteMapping("/dcustname/{username}")
 	public void deleteCustomerByName(@PathVariable("username") String username) {
-		custRepo.delete(custRepo.findByUsername(username));
+		if (custRepo.findByUsername(username) != null) {
+			Customer customer = custRepo.findByUsername(username);
+			customer.setEnabled(false);
+			custRepo.save(customer);
+		}
 	}
 
 }

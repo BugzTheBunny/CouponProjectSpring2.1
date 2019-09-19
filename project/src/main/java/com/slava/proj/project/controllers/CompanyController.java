@@ -58,7 +58,7 @@ public class CompanyController {
 	public Customer getCustomerById(@PathVariable("id") long id) {
 		if (custRepo.findById(id) != null)
 			return custRepo.findById(id);
-		return new Customer(99999999, "Invalid Account", "Not a customer", "No Access");
+		return new Customer(99999999, "Invalid Account", "Not a customer", "No Access", false);
 
 	}
 
@@ -66,7 +66,7 @@ public class CompanyController {
 	public Customer getCustomerByName(@PathVariable("username") String username) {
 		if (custRepo.findByUsername(username) != null)
 			return custRepo.findByUsername(username);
-		return new Customer(99999999, "Invalid Account", "Not a customer", "No Access");
+		return new Customer(99999999, "Invalid Account", "Not a customer", "No Access", false);
 	}
 
 	@GetMapping("/mycoupons")
