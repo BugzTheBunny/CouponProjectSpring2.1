@@ -42,7 +42,6 @@ public class CustomerController {
 	 *
 	 * @myInfo - return the current logged user credentials
 	 *
-	 * @couponsOnsale - returns the current coupons that the customer may buy
 	 */
 
 	@GetMapping("/mycoupons")
@@ -51,16 +50,7 @@ public class CustomerController {
 		return coupons;
 	}
 
-	@GetMapping("/info")
-	public Customer myInfo(Authentication authentication) {
-		return custRepo.findByUsername(authentication.getName());
-	}
 
-	@GetMapping("/sale")
-	public List<Coupon> couponsOnsale() {
-		List<Coupon> valid = couponRepo.findAllByStatusNot(CStatus.EXPIRED);
-		return valid;
-	}
 
 	/*
 	 * POST Requests

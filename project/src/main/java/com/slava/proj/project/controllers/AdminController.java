@@ -41,10 +41,6 @@ public class AdminController {
 	/*
 	 * GET Requests:
 	 * 
-	 * @getCompanies
-	 * 
-	 * @getCustomers
-	 * 
 	 * @getUserById
 	 * 
 	 * @getCustById
@@ -52,8 +48,6 @@ public class AdminController {
 	 * @getUserByName - For returning companies/ admins
 	 * 
 	 * @getCustomerByName
-	 * 
-	 * @getCoupon - by ID
 	 * 
 	 * @getCoupons
 	 * 

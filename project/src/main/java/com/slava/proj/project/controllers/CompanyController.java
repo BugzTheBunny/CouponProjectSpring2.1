@@ -99,11 +99,7 @@ public class CompanyController {
 		userRepo.save(company);
 	}
 
-	@PostMapping(path = "/newcustomer", consumes = { "application/json" })
-	public void createCustomer(@RequestBody Customer cust) {
-		cust.setRole("ROLE_CUST");
-		custRepo.save(cust);
-	}
+
 
 	/*
 	 * PUT Requests
