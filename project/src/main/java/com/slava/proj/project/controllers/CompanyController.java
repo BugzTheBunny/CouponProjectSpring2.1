@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,7 +84,13 @@ public class CompanyController {
 		return couponRepo.findAll();
 	}
 
-	//////////////// POST///////////////
+	/*
+	 * POST Requests
+	 * 
+	 * @createCoupon - creates a coupon
+	 * 
+	 * @createCustomer - creates a customer
+	 */
 	@PostMapping(path = "/newcoup", consumes = { "application/json" })
 	public void createCoupon(Authentication authentication, @RequestBody Coupon coupon) {
 		User company = userRepo.findByUsername(authentication.getName());
@@ -95,12 +100,18 @@ public class CompanyController {
 	}
 
 	@PostMapping(path = "/newcustomer", consumes = { "application/json" })
-	public void addCustomer(@RequestBody Customer cust) {
+	public void createCustomer(@RequestBody Customer cust) {
 		cust.setRole("ROLE_CUST");
 		custRepo.save(cust);
 	}
 
-	//////////////// PUT////////////////
+	/*
+	 * PUT Requests
+	 * 
+	 * @removeCoupon - changes the coupon status
+	 * 
+	 * @customerValidity - changes the customer validity;
+	 */
 	@PutMapping(path = "/updateUser", consumes = { "application/json" })
 	public void updatePassword(Authentication authentication, @RequestBody String password) {
 		User company = userRepo.findByUsername(authentication.getName());
@@ -108,13 +119,7 @@ public class CompanyController {
 		userRepo.save(company);
 	}
 
-	/*
-	 * DELETE Requests (Need to update)
-	 * 
-	 * @removeCoupon
-	 * 
-	 */
-	@DeleteMapping("/dcoupon/{id}")
+	@PutMapping("/removecoupon/{id}")
 	public void removeCoupon(@PathVariable("id") long id) {
 		if (couponRepo.findById(id) != null) {
 			Coupon coupon = couponRepo.findById(id);
@@ -123,11 +128,18 @@ public class CompanyController {
 		}
 	}
 
-	@DeleteMapping("/dcustomer/{id}")
-	public void deleteCustomer(@PathVariable("id") long id) {
-		if (custRepo.findById(id) != null)
-			custRepo.delete(custRepo.findById(id));
+	@PutMapping("/validcustomer/{id}")
+	public void customerValiditi(@PathVariable("id") long id) {
+		if (custRepo.findById(id) != null) {
+			Customer customer = custRepo.findById(id);
+			if (customer.isEnabled() == true) {
+				customer.setEnabled(false);
+			} else {
+				customer.setEnabled(true);
+			}
+			custRepo.save(customer);
 
+		}
 	}
 
 }

@@ -1,12 +1,12 @@
-insert into user values (101,1,'123','ADMIN','slava');
-insert into user values (102,1,'123','ADMIN','viktor');
-insert into user values (103,1,'123','COMP','comp');
-insert into user values (104,1,'123','COMP','e');
-insert into user values (105,0,'123','COMP','f');
+insert into user values (101,1,'123','ROLE_ADMIN','slava');
+insert into user values (102,1,'123','ROLE_ADMIN','viktor');
+insert into user values (103,1,'123','ROLE_COMP','comp');
+insert into user values (104,1,'123','ROLE_COMP','e');
+insert into user values (105,0,'123','ROLE_COMP','f');
 
-insert into customer values (101,1,'123','CUST','cust');
-insert into customer values (102,1,'123','CUST','b');
-insert into customer values (103,0,'123','CUST','c');
+insert into customer values (101,1,'123','ROLE_CUST','cust');
+insert into customer values (102,1,'123','ROLE_CUST','b');
+insert into customer values (103,0,'123','ROLE_CUST','c');
 
 insert into coupon values (100,20,20100505,'bob',5,20230505,'ONSALE','abc','FOOD');
 insert into coupon values (101,20,20100505,'bob',5,20210505,'ONSALE','abc','FOOD');
