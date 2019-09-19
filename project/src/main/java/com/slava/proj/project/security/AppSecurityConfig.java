@@ -41,10 +41,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.
 		authorizeRequests()
-		.antMatchers("/").hasAnyAuthority("ADMIN","CUST","COMP")
-		.antMatchers("/customer/**").hasAuthority("CUST")
-		.antMatchers("/company/**").hasAuthority("COMP")
-		.antMatchers("/admin/**").hasAuthority("ADMIN")
+		.antMatchers("/").hasAnyAuthority("ROLE_ADMIN","ROLE_CUST","ROLE_COMP")
+		.antMatchers("/customer/**").hasAuthority("ROLE_CUST")
+		.antMatchers("/company/**").hasAuthority("ROLE_COMP")
+		.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 		.and()
 		.formLogin()
 		.and()

@@ -60,7 +60,7 @@ public class AdminController {
 	 */
 	@GetMapping("/companies")
 	public Collection<User> getCompanies() {
-		return userRepo.findAllByRole("COMP");
+		return userRepo.findAllByRole("ROLE_COMP");
 	}
 
 	@GetMapping("/customers")
@@ -109,13 +109,13 @@ public class AdminController {
 
 	@PostMapping(path = "/newCompany", consumes = { "application/json" })
 	public void addCompany(@RequestBody User user) {
-		user.setRole("COMP");
+		user.setRole("ROLE_COMP");
 		userRepo.save(user);
 	}
 
 	@PostMapping(path = "/newcustomer", consumes = { "application/json" })
 	public void addCustomer(@RequestBody Customer cust) {
-		cust.setRole("CUST");
+		cust.setRole("ROLE_CUST");
 		custRepo.save(cust);
 	}
 
@@ -154,7 +154,7 @@ public class AdminController {
 	@PutMapping(path = "/promote", consumes = { "application/json" })
 	public void promote(@RequestBody long id) {
 		User toPromote = userRepo.findById(id);
-		toPromote.setRole("ADMIN");
+		toPromote.setRole("ROLE_ADMIN");
 		userRepo.save(toPromote);
 	}
 

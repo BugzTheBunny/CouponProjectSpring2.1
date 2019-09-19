@@ -51,7 +51,7 @@ public class CompanyController {
 	 */
 	@GetMapping("/customers")
 	public Collection<User> getCustomers() {
-		return userRepo.findAllByRole("CUST");
+		return userRepo.findAllByRole("ROLE_CUST");
 	}
 
 	@GetMapping("/custid/{id}")
@@ -96,7 +96,7 @@ public class CompanyController {
 
 	@PostMapping(path = "/newcustomer", consumes = { "application/json" })
 	public void addCustomer(@RequestBody Customer cust) {
-		cust.setRole("CUST");
+		cust.setRole("ROLE_CUST");
 		custRepo.save(cust);
 	}
 
