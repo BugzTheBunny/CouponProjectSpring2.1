@@ -164,21 +164,31 @@ public class AdminController {
 		userRepo.delete(userRepo.findByUsername(username));
 	}
 
-	@DeleteMapping("/dcustid/{id}")
-	public void deleteCustomerById(@PathVariable("id") long id) {
+	@PutMapping("/validcustomer/{id}")
+	public void customerValiditi(@PathVariable("id") long id) {
 		if (custRepo.findById(id) != null) {
 			Customer customer = custRepo.findById(id);
-			customer.setEnabled(false);
+			if (customer.isEnabled() == true) {
+				customer.setEnabled(false);
+			} else {
+				customer.setEnabled(true);
+			}
 			custRepo.save(customer);
+
 		}
 	}
 
-	@DeleteMapping("/dcustname/{username}")
-	public void deleteCustomerByName(@PathVariable("username") String username) {
+	@PutMapping("/validcustomer/{username}")
+	public void customerValidNByName(@PathVariable("username") String username) {
 		if (custRepo.findByUsername(username) != null) {
 			Customer customer = custRepo.findByUsername(username);
-			customer.setEnabled(false);
+			if (customer.isEnabled() == true) {
+				customer.setEnabled(false);
+			} else {
+				customer.setEnabled(true);
+			}
 			custRepo.save(customer);
+
 		}
 	}
 

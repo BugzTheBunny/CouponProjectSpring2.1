@@ -89,7 +89,6 @@ public class CompanyController {
 	 * 
 	 * @createCoupon - creates a coupon
 	 * 
-	 * @createCustomer - creates a customer
 	 */
 	@PostMapping(path = "/newcoup", consumes = { "application/json" })
 	public void createCoupon(Authentication authentication, @RequestBody Coupon coupon) {
@@ -98,8 +97,6 @@ public class CompanyController {
 		company.createCoupon(coupon);
 		userRepo.save(company);
 	}
-
-
 
 	/*
 	 * PUT Requests
@@ -124,18 +121,6 @@ public class CompanyController {
 		}
 	}
 
-	@PutMapping("/validcustomer/{id}")
-	public void customerValiditi(@PathVariable("id") long id) {
-		if (custRepo.findById(id) != null) {
-			Customer customer = custRepo.findById(id);
-			if (customer.isEnabled() == true) {
-				customer.setEnabled(false);
-			} else {
-				customer.setEnabled(true);
-			}
-			custRepo.save(customer);
 
-		}
-	}
 
 }

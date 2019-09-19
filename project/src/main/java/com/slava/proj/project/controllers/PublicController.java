@@ -18,7 +18,7 @@ import com.slava.proj.project.repo.CouponRepo;
 import com.slava.proj.project.repo.CustomerRepo;
 import com.slava.proj.project.repo.UserRepository;
 
-@RestController("")
+@RestController("/")
 public class PublicController {
 
 	/*
