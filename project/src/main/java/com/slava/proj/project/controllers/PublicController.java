@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,8 @@ import com.slava.proj.project.repo.CouponRepo;
 import com.slava.proj.project.repo.CustomerRepo;
 import com.slava.proj.project.repo.UserRepository;
 
-@RestController("/")
+@RestController("")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PublicController {
 
 	/*
@@ -36,7 +38,6 @@ public class PublicController {
 	public String welcome(Authentication authentication) {
 		return "Logged in as: " + authentication.getName() + " Role: " + authentication.getAuthorities();
 	}
-
 	@GetMapping("/companies")
 	public Collection<User> getCompanies() {
 		return userRepo.findAllByRole("ROLE_COMP");

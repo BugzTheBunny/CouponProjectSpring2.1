@@ -22,7 +22,6 @@ public class Coupon {
 	@Id
 	@Column
 	@NotNull
-	@JsonIgnore
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@NotNull
@@ -42,7 +41,6 @@ public class Coupon {
 	@Column(columnDefinition = "varchar(32) default 'OTHER'")
 	private CType type = CType.FOOD;
 	@Enumerated(EnumType.STRING)
-	@JsonIgnore
 	@Column(columnDefinition = "varchar(32) default 'ONSALE'")
 	private CStatus status = CStatus.ONSALE;
 
