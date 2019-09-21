@@ -18,7 +18,6 @@ public class Customer {
 	@Id
 	@Column
 	@NotNull
-	@JsonIgnore
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@NotNull

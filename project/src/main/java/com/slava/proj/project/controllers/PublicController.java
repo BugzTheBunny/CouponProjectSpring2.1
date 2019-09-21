@@ -42,6 +42,10 @@ public class PublicController {
 	public Collection<User> getCompanies() {
 		return userRepo.findAllByRole("ROLE_COMP");
 	}
+	@GetMapping("/customers")
+	public Collection<Customer> getCustomers() {
+		return custRepo.findAll();
+	}
 
 	@GetMapping("/coupons")
 	public Collection<Coupon> getAllCoupons() {
@@ -53,7 +57,7 @@ public class PublicController {
 		return couponRepo.findById(id);
 	}
 
-	@GetMapping("/validcoupons")
+	@GetMapping("/coupons/valid")
 	public Collection<Coupon> getAllValidCoupons() {
 		Collection<Coupon> coupons = couponRepo.findAll();
 		for (Coupon coupon : coupons) {
