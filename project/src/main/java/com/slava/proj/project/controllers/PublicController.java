@@ -51,6 +51,11 @@ public class PublicController {
 	public Collection<Coupon> getAllCoupons() {
 		return couponRepo.findAll();
 	}
+	
+	@GetMapping("/custname/{username}")
+	public Customer getCustomerByName(@PathVariable("username") String username) {
+		return custRepo.findByUsername(username);
+	}
 
 	@GetMapping("/coupons/{id}")
 	public Coupon getCoupon(@PathVariable("id") long id) {

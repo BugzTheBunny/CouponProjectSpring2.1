@@ -48,12 +48,11 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/customer/**").hasAuthority("ROLE_CUST")
 		.antMatchers("/company/**").hasAuthority("ROLE_COMP")
 		.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-		.antMatchers("/public").permitAll()
-		.and()
-				/*
-				 * .formLogin() .and()
-				 */
+		.antMatchers("/public/**").permitAll()
+		.antMatchers("/auth").hasAnyAuthority("ROLE_ADMIN","ROLE_COMP","ROLE_CUST")
+
 		
+		.and()
 		.httpBasic();
 	}
 
