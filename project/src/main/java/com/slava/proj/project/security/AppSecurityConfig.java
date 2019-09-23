@@ -44,12 +44,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable()
 		.authorizeRequests()
 		.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-		.antMatchers("/").hasAnyAuthority("ROLE_ADMIN","ROLE_CUST","ROLE_COMP")
+		.antMatchers("/").permitAll()
+		.antMatchers("/auth").permitAll()
+		.antMatchers("/public/**").hasAnyAuthority("ROLE_ADMIN","ROLE_USER","ROLE_CUST")
 		.antMatchers("/customer/**").hasAuthority("ROLE_CUST")
 		.antMatchers("/company/**").hasAuthority("ROLE_COMP")
 		.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-		.antMatchers("/public/**").permitAll()
-		.antMatchers("/auth").hasAnyAuthority("ROLE_ADMIN","ROLE_COMP","ROLE_CUST")
+	
 
 		
 		.and()
